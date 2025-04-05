@@ -1,7 +1,6 @@
 package org.example;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,14 +10,18 @@ import java.util.Scanner;
 
 public class Ingrediant {
     private static final String FILE_PATH = "ingredients.csv";
-    private static final String CATEGORY_FILE = "categories.csv"; // Path to CSV file
+    private CategoryManager categoryManager; 
+
+    // Constructor to initialize CategoryManager
+    public Ingrediant() {
+        this.categoryManager = new CategoryManager();
+    }
 
     public void addIngredient(Scanner scanner) {
         System.out.print("Enter ingredient name: ");
         String name = scanner.nextLine();
 
-        List<String> categories = readCategoriesFromCSV();
-
+        List<String> categories = categoryManager.readCategoriesFromCSV(); 
         System.out.println("Select a category (or type 'new' to add a new category):");
         for (int i = 0; i < categories.size(); i++) {
             System.out.println((i + 1) + ". " + categories.get(i));
@@ -33,7 +36,7 @@ public class Ingrediant {
             System.out.print("Enter new category name: ");
             String newCategory = scanner.nextLine();
             categories.add(newCategory);
-            writeCategoryToCSV(newCategory);
+            categoryManager.writeCategoryToCSV(newCategory);  
             System.out.println("New category added: " + newCategory);
             categoryIndex = categories.size() - 1; 
         } else {
@@ -123,28 +126,6 @@ public class Ingrediant {
             System.out.println("Ingredient added successfully!");
         } catch (IOException e) {
             System.out.println("Error saving ingredient: " + e.getMessage());
-        }
-    }
-
-    private List<String> readCategoriesFromCSV() {
-        List<String> categories = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(CATEGORY_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                categories.add(line);
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading categories from file: " + e.getMessage());
-        }
-        return categories;
-    }
-
-    private void writeCategoryToCSV(String category) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CATEGORY_FILE, true))) {
-            writer.write(category);
-            writer.newLine();
-        } catch (IOException e) {
-            System.out.println("Error writing to category file: " + e.getMessage());
         }
     }
 }
