@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class FridgeTrackerApp {
@@ -9,6 +10,7 @@ public class FridgeTrackerApp {
         w.printWelcome();
 
         Ingrediant ingrediant = new Ingrediant();
+        RecipeAPIClient recipeAPIClient = new RecipeAPIClient();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -33,7 +35,15 @@ public class FridgeTrackerApp {
 
             switch (choice) {
                 case 1 -> ingrediant.addIngredient(scanner);
-                case 2 -> System.out.println("Suggest Recipes");
+                case 2 -> {
+                    List<String> ingredientList = recipeAPIClient.getIngredientsFromCSV("ingredients.csv");
+                    if (!ingredientList.isEmpty()) {
+                        recipeAPIClient.suggestRecipes(ingredientList);
+                    } else {
+                        System.out.println("No ingredients found to suggest recipes.");
+                    }
+                }
+
                 case 8 -> ingrediant.viewAllIngredients();
                 case 0 -> {
                     running = false;
