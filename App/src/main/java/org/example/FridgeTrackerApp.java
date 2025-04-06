@@ -11,6 +11,7 @@ public class FridgeTrackerApp {
 
         Ingrediant ingrediant = new Ingrediant();
         RecipeAPIClient recipeAPIClient = new RecipeAPIClient();
+        SeasonalTips seasonalTips = new SeasonalTips(); 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -43,7 +44,7 @@ public class FridgeTrackerApp {
                         System.out.println("No ingredients found to suggest recipes.");
                     }
                 }
-
+                case 6 -> seasonalTips.displaySeasonalTips(); 
                 case 8 -> ingrediant.viewAllIngredients();
                 case 0 -> {
                     running = false;

@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Ingrediant {
     private static final String FILE_PATH = "ingredients.csv";
-    private CategoryManager categoryManager; 
+    private final CategoryManager categoryManager; 
 
     // Constructor to initialize CategoryManager
     public Ingrediant() {
