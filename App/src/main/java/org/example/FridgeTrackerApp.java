@@ -54,6 +54,7 @@ public class FridgeTrackerApp {
                 case 7 -> ingrediant.updateIngredientQuantity(scanner);
                 case 8 -> ingrediant.viewAllIngredients();
                 case 9 -> ingrediant.showWasteLog();
+                case 10 -> ingrediant.clearWasteLog();
                 case 0 -> {
                     running = false;
                     System.out.println("Exiting... Goodbye!");
@@ -74,6 +75,7 @@ public class FridgeTrackerApp {
         System.out.println("7. Update Ingredient Quantity");
         System.out.println("8. View All Ingredients");
         System.out.println("9. Show Waste Log");
+        System.out.println("10. Clear Waste Log");
         System.out.println("0. Exit");
         System.out.println("==========================\n");
     }

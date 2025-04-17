@@ -179,6 +179,19 @@ public class Ingrediant {
 
         System.out.println("----------------------------------------------------------------------------");
     }
+    
+    public void clearWasteLog() {
+        try (FileWriter writer = new FileWriter(WASTE_LOG_PATH, false)) {
+            // Overwrites the file with nothing, effectively clearing it
+        } catch (IOException e) {
+            System.out.println("Error clearing waste log: " + e.getMessage());
+            return;
+        }
+    
+        System.out.println();
+        System.out.println("Waste log has been cleared.");
+        System.out.println();
+    }
 
     public void filterIngredientsByCategory(Scanner scanner) {
         List<String> categories = categoryManager.readCategoriesFromCSV();
@@ -238,7 +251,7 @@ public class Ingrediant {
     public void updateIngredientQuantity(Scanner scanner) {
         List<String> lines = new ArrayList<>();
     
-        // Read all ingredients first
+
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -256,7 +269,7 @@ public class Ingrediant {
             return;
         }
     
-        // Show ingredient list
+
         System.out.println("\nAvailable Ingredients:");
         for (int i = 0; i < lines.size(); i++) {
             String[] details = lines.get(i).split(",");
@@ -282,7 +295,7 @@ public class Ingrediant {
             return;
         }
     
-        // Get the selected line
+
         String[] selectedDetails = lines.get(selectedIndex).split(",");
     
         System.out.printf("Current quantity of '%s' is %s ml/gram\n", selectedDetails[0], selectedDetails[2]);
