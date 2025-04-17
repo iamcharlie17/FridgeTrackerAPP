@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Displays seasonal health tips based on the current date.
- */
 public class SeasonalTips {
 
     private final Map<String, List<String>> seasonalTips = new HashMap<>();
