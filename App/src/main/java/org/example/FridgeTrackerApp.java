@@ -11,7 +11,7 @@ public class FridgeTrackerApp {
 
         Ingrediant ingrediant = new Ingrediant();
         RecipeAPIClient recipeAPIClient = new RecipeAPIClient();
-        SeasonalTips seasonalTips = new SeasonalTips(); 
+        SeasonalTips seasonalTips = new SeasonalTips();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -44,9 +44,10 @@ public class FridgeTrackerApp {
                         System.out.println("No ingredients found to suggest recipes.");
                     }
                 }
-                case 5 -> ingrediant.removeExpiredItems(scanner);
-                case 6 -> seasonalTips.displaySeasonalTips(); 
+                case 5 -> ingrediant.removeExpiredIngredients();
+                case 6 -> seasonalTips.displaySeasonalTips();
                 case 8 -> ingrediant.viewAllIngredients();
+                case 9 -> ingrediant.showWasteLog();
                 case 0 -> {
                     running = false;
                     System.out.println("Exiting... Goodbye!");
