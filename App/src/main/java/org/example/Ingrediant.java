@@ -233,7 +233,100 @@ public class Ingrediant {
         System.out.println("------------------------------------------------------------------------------");
     }
 
+
+
+    public void updateIngredientQuantity(Scanner scanner) {
+        List<String> lines = new ArrayList<>();
     
+        // Read all ingredients first
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading ingredients file: " + e.getMessage());
+            return;
+        }
+    
+        if (lines.isEmpty()) {
+            System.out.println();
+            System.out.println("No ingredients found.");
+            System.out.println();
+            return;
+        }
+    
+        // Show ingredient list
+        System.out.println("\nAvailable Ingredients:");
+        for (int i = 0; i < lines.size(); i++) {
+            String[] details = lines.get(i).split(",");
+            if (details.length >= 3) {
+                System.out.printf("%d. %s (Quantity: %s ml/gram)\n", i + 1, details[0], details[2]);
+            }
+        }
+    
+        System.out.print("\nSelect an ingredient number to update: ");
+        int selectedIndex;
+        try {
+            selectedIndex = Integer.parseInt(scanner.nextLine()) - 1;
+            if (selectedIndex < 0 || selectedIndex >= lines.size()) {
+                System.out.println();
+                System.out.println("Invalid selection.");
+                System.out.println();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println();
+            System.out.println("Invalid input. Must be a number.");
+            System.out.println();
+            return;
+        }
+    
+        // Get the selected line
+        String[] selectedDetails = lines.get(selectedIndex).split(",");
+    
+        System.out.printf("Current quantity of '%s' is %s ml/gram\n", selectedDetails[0], selectedDetails[2]);
+        System.out.print("Enter new quantity ml/gram (0 to delete): ");
+    
+        int newQuantity;
+        try {
+            newQuantity = Integer.parseInt(scanner.nextLine());
+            if (newQuantity < 0) {
+                System.out.println();
+                System.out.println("Quantity must be a positive number.");
+                System.out.println();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println();
+            System.out.println("Invalid quantity.");
+            System.out.println();
+            return;
+        }
+    
+        if (newQuantity == 0) {
+            lines.remove(selectedIndex);
+            System.out.println();
+            System.out.println("Ingredient deleted successfully.");
+            System.out.println();
+        } else {
+            selectedDetails[2] = String.valueOf(newQuantity);
+            lines.set(selectedIndex, String.join(",", selectedDetails));
+            System.out.println();
+            System.out.println("Quantity updated successfully.");
+            System.out.println();
+        }
+    
+        try (FileWriter writer = new FileWriter(FILE_PATH, false)) {
+            for (String updatedLine : lines) {
+                writer.write(updatedLine + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println();
+            System.out.println("Error writing to file: " + e.getMessage());
+            System.out.println();
+        }
+    }
     
 
 

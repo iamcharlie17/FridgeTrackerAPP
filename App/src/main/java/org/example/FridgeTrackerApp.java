@@ -51,6 +51,7 @@ public class FridgeTrackerApp {
                 }
                 case 5 -> ingrediant.removeExpiredIngredients();
                 case 6 -> seasonalTips.displaySeasonalTips();
+                case 7 -> ingrediant.updateIngredientQuantity(scanner);
                 case 8 -> ingrediant.viewAllIngredients();
                 case 9 -> ingrediant.showWasteLog();
                 case 0 -> {
