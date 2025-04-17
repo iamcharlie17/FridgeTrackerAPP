@@ -44,6 +44,7 @@ public class FridgeTrackerApp {
                         System.out.println("No ingredients found to suggest recipes.");
                     }
                 }
+                case 3 -> ingrediant.filterIngredientsByCategory(scanner);
                 case 5 -> ingrediant.removeExpiredIngredients();
                 case 6 -> seasonalTips.displaySeasonalTips();
                 case 8 -> ingrediant.viewAllIngredients();

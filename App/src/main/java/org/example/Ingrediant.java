@@ -180,6 +180,61 @@ public class Ingrediant {
         System.out.println("----------------------------------------------------------------------------");
     }
 
+    public void filterIngredientsByCategory(Scanner scanner) {
+        List<String> categories = categoryManager.readCategoriesFromCSV();
+    
+        if (categories.isEmpty()) {
+            System.out.println("No categories available.");
+            return;
+        }
+    
+        System.out.println("\nAvailable Categories:");
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println((i + 1) + ". " + categories.get(i));
+        }
+    
+        System.out.print("Select a category to filter by: ");
+        String input = scanner.nextLine();
+    
+        int categoryIndex;
+        try {
+            categoryIndex = Integer.parseInt(input) - 1;
+            if (categoryIndex < 0 || categoryIndex >= categories.size()) {
+                System.out.println("Invalid category selection.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return;
+        }
+    
+        String selectedCategory = categories.get(categoryIndex);
+        List<String> allIngredients = getAllIngredients();
+    
+        System.out.println();
+        System.out.println("                         Ingredients in Category: " + selectedCategory);
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.printf("| %-20s | %-20s | %-10s | %-15s |\n", "Ingredient", "Category", "Quantity", "Expiration Date");
+        System.out.println("------------------------------------------------------------------------------");
+    
+        boolean found = false;
+        for (String ingredient : allIngredients) {
+            String[] details = ingredient.split(",");
+            if (details.length == 4 && details[1].equalsIgnoreCase(selectedCategory)) {
+                System.out.printf("| %-20s | %-20s | %-10s | %-15s |\n", details[0], details[1], details[2], details[3]);
+                found = true;
+            }
+        }
+    
+        if (!found) {
+            System.out.println("|           No ingredients found in this category.                           |");
+        }
+    
+        System.out.println("------------------------------------------------------------------------------");
+    }
+    
+
+
     private List<String> getAllIngredients() {
         List<String> ingredients = new ArrayList<>();
 
@@ -204,4 +259,6 @@ public class Ingrediant {
             System.out.println("Error saving ingredient: " + e.getMessage());
         }
     }
+
+    
 }
