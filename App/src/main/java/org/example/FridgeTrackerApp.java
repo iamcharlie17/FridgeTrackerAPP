@@ -40,8 +40,8 @@ public class FridgeTrackerApp {
             }
 
             switch (choice) {
-                case 1 -> ingredientManager.addIngredient(scanner);
-                case 2 -> {
+                case 2 -> ingredientManager.addIngredient(scanner);
+                case 6 -> {
                     List<String> ingredientList = recipeAPIClient.getIngredientsFromCSV("ingredients.csv");
                     if (!ingredientList.isEmpty()) {
                         recipeAPIClient.suggestRecipes(ingredientList);
@@ -49,14 +49,14 @@ public class FridgeTrackerApp {
                         System.out.println("No ingredients found to suggest recipes.");
                     }
                 }
-                case 3 -> ingredientManager.filterIngredientsByCategory(scanner);
-                case 4 -> {
+                case 5 -> ingredientManager.filterIngredientsByCategory(scanner);
+                case 7 -> {
                     nutritionAPI.showNutritionalSummaryViaAPI();
                 }
-                case 5 -> ingredientManager.removeExpiredIngredients();
-                case 6 -> seasonalTips.displaySeasonalTips();
-                case 7 -> ingredientManager.updateIngredientQuantity(scanner);
-                case 8 -> ingredientManager.viewAllIngredients();
+                case 8 -> ingredientManager.removeExpiredIngredients();
+                case 1 -> seasonalTips.displaySeasonalTips();
+                case 3 -> ingredientManager.updateIngredientQuantity(scanner);
+                case 4 -> ingredientManager.viewAllIngredients();
                 case 9 -> ingredientManager.showWasteLog();
                 case 10 -> ingredientManager.clearWasteLog();
                 case 0 -> {
@@ -70,14 +70,14 @@ public class FridgeTrackerApp {
 
     private static void printMenu() {
         System.out.println("\n========== MENU ==========");
-        System.out.println("1. Add Ingredient");
-        System.out.println("2. Suggest Recipes");
-        System.out.println("3. Filter Ingredients by Category");
-        System.out.println("4. Nutrition Calculator");
-        System.out.println("5. Remove Expired Items");
-        System.out.println("6. Display Seasonal Health Tips");
-        System.out.println("7. Update Ingredient Quantity");
-        System.out.println("8. View All Ingredients");
+        System.out.println("1. Display Seasonal Health Tips");
+        System.out.println("2. Add Ingredient");
+        System.out.println("3. Update Ingredient Quantity");
+        System.out.println("4. View All Ingredients");
+        System.out.println("5. Filter Ingredients by Category");
+        System.out.println("6. Suggest Recipes");
+        System.out.println("7. Nutrition Calculator");
+        System.out.println("8. Remove Expired Items");
         System.out.println("9. Show Waste Log");
         System.out.println("10. Clear Waste Log");
         System.out.println("0. Exit");

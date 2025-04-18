@@ -1,6 +1,6 @@
 # 🧊 Fridge Tracker App
 
-A console-based Java application that helps users manage fridge inventory, reduce food waste, and stay on top of nutrition. Built with Java 21 and Maven, featuring intuitive menu-based navigation powered by the JLine library.
+A console-based Java application that helps users manage fridge inventory, reduce food waste, and stay on top of nutrition. Built with Java 21 and Maven.
 
 ---
 
