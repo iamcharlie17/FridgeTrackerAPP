@@ -9,10 +9,14 @@ public class FridgeTrackerApp {
         Welcome w = new Welcome();
         w.printWelcome();
 
-        Ingrediant ingrediant = new Ingrediant();
+        IngredientManager ingredientManager = new IngredientManager(
+                new CategoryManager(),
+                new IngredientFileHandler(),
+                new WasteManager(new IngredientFileHandler()));
+
         RecipeAPIClient recipeAPIClient = new RecipeAPIClient();
         SeasonalTips seasonalTips = new SeasonalTips();
-        NutritionAPI nutritionAPI = new NutritionAPI();  
+        NutritionAPI nutritionAPI = new NutritionAPI();
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -36,7 +40,7 @@ public class FridgeTrackerApp {
             }
 
             switch (choice) {
-                case 1 -> ingrediant.addIngredient(scanner);
+                case 1 -> ingredientManager.addIngredient(scanner);
                 case 2 -> {
                     List<String> ingredientList = recipeAPIClient.getIngredientsFromCSV("ingredients.csv");
                     if (!ingredientList.isEmpty()) {
@@ -45,16 +49,16 @@ public class FridgeTrackerApp {
                         System.out.println("No ingredients found to suggest recipes.");
                     }
                 }
-                case 3 -> ingrediant.filterIngredientsByCategory(scanner);
+                case 3 -> ingredientManager.filterIngredientsByCategory(scanner);
                 case 4 -> {
                     nutritionAPI.showNutritionalSummaryViaAPI();
                 }
-                case 5 -> ingrediant.removeExpiredIngredients();
+                case 5 -> ingredientManager.removeExpiredIngredients();
                 case 6 -> seasonalTips.displaySeasonalTips();
-                case 7 -> ingrediant.updateIngredientQuantity(scanner);
-                case 8 -> ingrediant.viewAllIngredients();
-                case 9 -> ingrediant.showWasteLog();
-                case 10 -> ingrediant.clearWasteLog();
+                case 7 -> ingredientManager.updateIngredientQuantity(scanner);
+                case 8 -> ingredientManager.viewAllIngredients();
+                case 9 -> ingredientManager.showWasteLog();
+                case 10 -> ingredientManager.clearWasteLog();
                 case 0 -> {
                     running = false;
                     System.out.println("Exiting... Goodbye!");

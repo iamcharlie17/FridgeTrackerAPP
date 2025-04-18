@@ -53,16 +53,13 @@ public class RecipeAPIClient {
                 JsonArray usedIngredients = element.getAsJsonObject().getAsJsonArray("usedIngredients");
                 JsonArray missedIngredients = element.getAsJsonObject().getAsJsonArray("missedIngredients");
     
-                // Define width of the box
                 int boxWidth = 62;
     
-                // Create the box style with fixed width
                 String border = "+--------------------------------------------------------------+";
                 String recipeTitle = "| Recipe: " + String.format("%-53s", title) + "|";
                 String usedHeader = "| Used Ingredients:                                            |";
                 String missedHeader = "| Missed Ingredients:                                          |";
     
-                // Print the box
                 System.out.println(border);
                 System.out.println(recipeTitle);
                 System.out.println(border);
@@ -70,14 +67,12 @@ public class RecipeAPIClient {
     
                 for (JsonElement usedElement : usedIngredients) {
                     String ingredient = usedElement.getAsJsonObject().get("name").getAsString();
-                    // Format the ingredient to fit within the box
                     System.out.println("|   - " + String.format("%-55s", ingredient) + "  |");
                 }
     
                 System.out.println(missedHeader);
                 for (JsonElement missedElement : missedIngredients) {
                     String ingredient = missedElement.getAsJsonObject().get("name").getAsString();
-                    // Format the ingredient to fit within the box
                     System.out.println("|   - " + String.format("%-55s", ingredient) + "  |");
                 }
     
